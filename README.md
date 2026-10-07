@@ -1,5 +1,11 @@
-# Владислав Фёдоров
-###### Software Engineer / R&D Developer (Python / C++ / Desktop / Железо / Сети)
+# Владислав Фёдоров (Software Engineer / R&D Developer)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white&logoSize=12)
+![Algorithms](https://img.shields.io/badge/Algorithms-039A74?style=flat&logo=databricks&logoColor=white)
+![Desktop](https://img.shields.io/badge/Desktop_GUI-0078D4?style=flat&logo=codementor&logoColor=white)
+![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white)
+![Hardware](https://img.shields.io/badge/Hardware_%26_IoT-4A4A55?style=flat&logo=arduino&logoColor=white)
+![Networking](https://img.shields.io/badge/Network_Protocols-E34F26?style=flat&logo=wireshark&logoColor=white)
+
 
 **Возраст:** 25 лет (03.12.2000)  
 **Telegram:** [@Barhatnoe_puzzo](https://t.me/Barhatnoe_puzzo) | **Email:** vladislav.fedorov.work@mail.ru
@@ -22,6 +28,7 @@ Full-Stack R&D инженер-исследователь. Специализир
 
 ## 🛠 Ключевые навыки
 - **Языки:** Python (Advanced), C++ (Intermediate), C, C#, Java, JavaScript, SQL, Lua, Assembly (чтение).
+- **Desktop:** Qt/QML, Windows Forms, Tkinter.
 - **3D-Графика:** OpenGL (ModernGL), GLSL (кастомные шейдеры), 3D-математика (векторы, матрицы, кватернионы), Level of Detail (LOD), Frustum Culling, Unity3D, Godot.
 - **Алгоритмы:** Генетические и эволюционные алгоритмы (ГА), теория графов (DFS/BFS/Дейкстра/А*), машинное обучение (Scikit-learn), Computer Vision (OpenCV), нейросети.
 - **Оптимизация:** Многопоточность (Race Conditions, Locks, asyncio), JIT-компиляция (Numba), NumPy, профайлинг.
@@ -48,106 +55,107 @@ Full-Stack R&D инженер-исследователь. Специализир
   * *Управление:* Создан отдельный инструментарий разработчика для управления параметрами рендера без блокировки OpenGL-контекста.
   
   🎥🔦![GIF демо](images/3D%20Earth%20shrink.gif "Пример работы 3Д движка.")
-<details><summary>Сниппет кода математики сшивания</summary>
+  <details><summary>Сниппет кода математики сшивания</summary>
+
+  ```python
+    for chunk in self.active_chunks:
+        cx, cz = chunk
   
-```python
-  for chunk in self.active_chunks:
-      cx, cz = chunk
-
-      # Превращаем байты в 3D массив numpy (256x256 пикселей, 3 канала RGB)
-      dem_bytes = self.chunk_textures[chunk]['dem'].read()
-      dem_np = np.frombuffer(dem_bytes, dtype=np.uint8).reshape((256, 256, 3)).copy()
-
-      # 1. Сшиваем с Левым соседом (cx-1)
-      # Усредняем Левый край текущего (col 0) и Правый край соседа (col 255)
-      if (cx - 1, cz) in self.dem_arrays:
-          neigh = self.dem_arrays[(cx - 1, cz)]
-          avg_edge = self._average_mapzen_edges(dem_np[:, 0, :], neigh[:, 255, :])
-          dem_np[:, 0, :] = avg_edge
-          neigh[:, 255, :] = avg_edge
-          # Динамически обновляем текстуру соседа прямо в видеокарте
-          if (cx - 1, cz) in self.chunk_textures and self.chunk_textures[(cx - 1, cz)] is not None:
-              self.chunk_textures[(cx - 1, cz)]['dem'].write(neigh.tobytes())
-
-      # 2. Сшиваем с Правым соседом (cx+1)
-      ...
-      # 3. Сшиваем с Верхним соседом (cz-1, Север)
-      ...
-      # 4. Сшиваем с Нижним соседом (cz+1, Юг)
-      ...
-
-      # --- СШИВАНИЕ УГЛОВ (вбиваем гвозди в диагонали) ---
-      # Левый верхний (Северо-Запад NW)
-      self._sync_corner([((cx, cz), 0, 0), ((cx, cz - 1), 255, 0), ((cx - 1, cz), 0, 255), ((cx - 1, cz - 1), 255, 255)])
-      # Левый нижний (Юго-Запад SW)
-      ...
-      # Правый верхний (Северо-Восток NE)
-      ...
-      # Правый нижний (Юго-Восток SE)
-      ...
-
-      # Сохраняем прошитый массив для будущих соседей
-      self.dem_arrays[(cx, cz)] = dem_np
-
-      # Обновляем байты для загрузки текущего чанка в GPU
-      stitched_dem_bytes = dem_np.tobytes()
-```
-</details>
+        # Превращаем байты в 3D массив numpy (256x256 пикселей, 3 канала RGB)
+        dem_bytes = self.chunk_textures[chunk]['dem'].read()
+        dem_np = np.frombuffer(dem_bytes, dtype=np.uint8).reshape((256, 256, 3)).copy()
+  
+        # 1. Сшиваем с Левым соседом (cx-1)
+        # Усредняем Левый край текущего (col 0) и Правый край соседа (col 255)
+        if (cx - 1, cz) in self.dem_arrays:
+            neigh = self.dem_arrays[(cx - 1, cz)]
+            avg_edge = self._average_mapzen_edges(dem_np[:, 0, :], neigh[:, 255, :])
+            dem_np[:, 0, :] = avg_edge
+            neigh[:, 255, :] = avg_edge
+            # Динамически обновляем текстуру соседа прямо в видеокарте
+            if (cx - 1, cz) in self.chunk_textures and self.chunk_textures[(cx - 1, cz)] is not None:
+                self.chunk_textures[(cx - 1, cz)]['dem'].write(neigh.tobytes())
+  
+        # 2. Сшиваем с Правым соседом (cx+1)
+        ...
+        # 3. Сшиваем с Верхним соседом (cz-1, Север)
+        ...
+        # 4. Сшиваем с Нижним соседом (cz+1, Юг)
+        ...
+  
+        # --- СШИВАНИЕ УГЛОВ (вбиваем гвозди в диагонали) ---
+        # Левый верхний (Северо-Запад NW)
+        self._sync_corner([((cx, cz), 0, 0), ((cx, cz - 1), 255, 0),
+                          ((cx - 1, cz), 0, 255), ((cx - 1, cz - 1), 255, 255)])
+        # Левый нижний (Юго-Запад SW)
+        ...
+        # Правый верхний (Северо-Восток NE)
+        ...
+        # Правый нижний (Юго-Восток SE)
+        ...
+  
+        # Сохраняем прошитый массив для будущих соседей
+        self.dem_arrays[(cx, cz)] = dem_np
+  
+        # Обновляем байты для загрузки текущего чанка в GPU
+        stitched_dem_bytes = dem_np.tobytes()
+  ```
+  </details>
 
 #### 2. Reverse Engineering, Hardware и Низкоуровневая разработка
 * **Управление опорно-поворотным устройством (ОПУ) по UDP:**
   Разработал асинхронное ПО (asyncio) с GUI для контроля позиционирования ОПУ.
   * *Сеть и данные:* Написал UDP-клиент для непрерывного обмена данными. Реализовал строгую валидацию бинарных пакетов (CRC) и побитовый разбор флагов состояния устройства.
-<details><summary>Сниппет кода с классом пакета для UDP передачи</summary>
-
-```python
-# =====================================================================
-# БАЗОВЫЙ КЛАСС ПАКЕТА С ПОДДЕРЖКОЙ СRС
-# =====================================================================
-
-@dataclass
-class OpuPacket:
-    """Базовый класс для сериализации структур ОПУ с расчетом побайтного CRC."""
-    _FORMAT: ClassVar[str] = "<"
-
-    def pack(self) -> bytes:
-        """Упаковывает поля и автоматически рассчитывает и добавляет 2 байта CRC в конец."""
-        values = [getattr(self, f.name) for f in fields(self)]
-        # Упаковываем основные данные без контрольной суммы
-        raw_payload = struct.pack(self._FORMAT, *values)
-        # Считаем побайтную сумму данных всего пакета
-        crc = self._calc_checksum(raw_payload)
-        # Дописываем контрольную сумму (2 байта, Word)
-        return raw_payload + struct.pack("<H", crc)
-
-    @classmethod
-    def unpack_payload(cls: Self, data: bytes) -> Tuple[Self, int]:
-        """Распаковывает только полезную нагрузку структуры, валидируя CRC."""
-        fmt = cls._FORMAT
-        payload_size = struct.calcsize(fmt)
-
-        if len(data) < payload_size + 2:
-            raise ValueError(f"Размер пакета меньше минимального для {cls.__name__}")
-
-        raw_payload = data[:payload_size]
-        # NOTE: struct.unpack отдает кортеж (val,), поэтому берем [0]
-        expected_crc = struct.unpack("<H", data[payload_size:payload_size + 2])[0]
-
-        # Проверка контрольной суммы
-        actual_crc = cls._calc_checksum(raw_payload)
-        if actual_crc != expected_crc:
-            raise ValueError(f"Ошибка CRC ОПУ: ожидалось {expected_crc}, получено {actual_crc}")
-
-        unpacked_values = struct.unpack(fmt, raw_payload)
-        init_fields = [f.name for f in fields(cls)]
-
-        return cls(**dict(zip(init_fields, unpacked_values))), payload_size + 2
-
-    @staticmethod
-    def _calc_checksum(raw_payload: bytes):
-        return sum(raw_payload) & 0xFFFF
-```
-</details>
+    <details><summary>Сниппет кода с классом пакета для UDP передачи</summary>
+    
+    ```python
+    # =====================================================================
+    # БАЗОВЫЙ КЛАСС ПАКЕТА С ПОДДЕРЖКОЙ СRС
+    # =====================================================================
+    
+    @dataclass
+    class OpuPacket:
+        """Базовый класс для сериализации структур ОПУ с расчетом побайтного CRC."""
+        _FORMAT: ClassVar[str] = "<"
+    
+        def pack(self) -> bytes:
+            """Упаковывает поля и автоматически рассчитывает и добавляет 2 байта CRC в конец."""
+            values = [getattr(self, f.name) for f in fields(self)]
+            # Упаковываем основные данные без контрольной суммы
+            raw_payload = struct.pack(self._FORMAT, *values)
+            # Считаем побайтную сумму данных всего пакета
+            crc = self._calc_checksum(raw_payload)
+            # Дописываем контрольную сумму (2 байта, Word)
+            return raw_payload + struct.pack("<H", crc)
+    
+        @classmethod
+        def unpack_payload(cls: Self, data: bytes) -> Tuple[Self, int]:
+            """Распаковывает только полезную нагрузку структуры, валидируя CRC."""
+            fmt = cls._FORMAT
+            payload_size = struct.calcsize(fmt)
+    
+            if len(data) < payload_size + 2:
+                raise ValueError(f"Размер пакета меньше минимального для {cls.__name__}")
+    
+            raw_payload = data[:payload_size]
+            # NOTE: struct.unpack отдает кортеж (val,), поэтому берем [0]
+            expected_crc = struct.unpack("<H", data[payload_size:payload_size + 2])[0]
+    
+            # Проверка контрольной суммы
+            actual_crc = cls._calc_checksum(raw_payload)
+            if actual_crc != expected_crc:
+                raise ValueError(f"Ошибка CRC ОПУ: ожидалось {expected_crc}, получено {actual_crc}")
+    
+            unpacked_values = struct.unpack(fmt, raw_payload)
+            init_fields = [f.name for f in fields(cls)]
+    
+            return cls(**dict(zip(init_fields, unpacked_values))), payload_size + 2
+    
+        @staticmethod
+        def _calc_checksum(raw_payload: bytes):
+            return sum(raw_payload) & 0xFFFF
+    ```
+    </details>
 
   * *Управление:* Спроектировал датаклассы для упаковки команд движения (азимут/угол места) и интегрировал плавное управление с клавиатуры.
 * **Математика и парсинг сигналов GNSS (C, Python):**
@@ -180,101 +188,101 @@ class OpuPacket:
   * На тестовых массивах размером порядка 4608 x 4608 вычисление после оптимизации занимало секунды вместо десятков секунд.
   * В софте присутствуют: ПКМ меню, тулбар, многопоточный код, сборка ".exe", установщик и сертификаты.
 
-<details><summary>Сниппет кода с jit компиляцией для расчёта горизонта</summary>
-
-```python
-
-@njit(cache=True, fastmath=True, parallel=True)
-def process_all_rays_numba(effective_height, visible, edge_points, cx, cy, center_height, pixel_size):
-    """
-    Выполняет расчёт видимости по всем лучам DEM.
-
-    Алгоритм:
-
-    1. Для каждой точки периметра строится DDA-луч.
-    2. Луч проходит через DEM с субпиксельной точностью.
-    3. Высота рельефа вычисляется билинейной интерполяцией.
-    4. Для каждой точки вычисляется угол возвышения.
-    5. Поддерживается текущий радиогоризонт (максимальный угол вдоль луча).
-    6. Точка считается видимой, если её угол не ниже текущего горизонта.
-
-    Все лучи обрабатываются внутри одной Numba-функции,
-    что исключает тысячи переходов Python → Numba.
-
-    parallel=True позволяет распределять лучи между
-    несколькими ядрами CPU.
-    """
-
-    h_map, w_map = effective_height.shape
-    num_rays = edge_points.shape[0]
-
-    for ray_idx in prange(num_rays):
-        # ============================================================
-        # DDA (Digital Differential Analyzer)
-        # ============================================================
-        # Строим дискретный луч от центра к граничной точке.
-        x1, y1 = edge_points[ray_idx, 0], edge_points[ray_idx, 1]
-        dx, dy = x1 - cx, y1 - cy
-
-        # Шаг выбирается по максимальной компоненте, чтобы за одну итерацию не перепрыгнуть пиксель вдоль главной оси движения.
-        steps = max(abs(dx), abs(dy))
-
-        if steps == 0:
-            continue
-
-        # Двигаемся маленькими шагами вдоль направления луча и сохраняем все пересечённые пиксели.
-        step_x, step_y = dx / steps, dy / steps
-        ray_step_length = math.sqrt(step_x * step_x + step_y * step_y)
-
-        # Текущий радиогоризонт.
-        # Храним максимальный угол возвышения, встретившийся вдоль луча.
-        # Любая последующая точка с меньшим углом считается скрытой рельефом.
-        max_angle = -1e30
-        for i in range(steps + 1):
-            x, y = cx + step_x * i, cy + step_y * i
-
-            ix, iy = int(x), int(y)
-
-            # Bilinear interpolation значительно уменьшает ступенчатые эффекты DEM.
-            x0, y0 = ix, iy
-
-            x1i, y1i = min(x0 + 1, w_map - 1), min(y0 + 1, h_map - 1)
-
-            fx, fy = x - x0, y - y0
-
-            h00 = effective_height[y0, x0]
-            h10 = effective_height[y0, x1i]
-            h01 = effective_height[y1i, x0]
-            h11 = effective_height[y1i, x1i]
-
-            # Получаем высоту рельефа в дробных координатах луча.
-            height = (
-                    h00 * (1.0 - fx) * (1.0 - fy)
-                    + h10 * fx * (1.0 - fy)
-                    + h01 * (1.0 - fx) * fy
-                    + h11 * fx * fy
-            )
-
-            # Дистанция до луча
-            distance = 1e-9 if i == 0 else (i * ray_step_length * pixel_size)
-
-            # Угол возвышения
-            # Сам угол через atan() не нужен, поскольку для сравнения видимости достаточно относительного порядка значений.
-            # Это быстрее и даёт тот же результат.
-            angle = ((height - center_height) / distance)
-
-            # ===== Построение горизонта =====
-            # Идея алгоритма видимости:
-            # Для каждой точки луча запоминаем максимальный угол возвышения, встреченный ранее на этом луче.
-            # Если текущий угол меньше уже существующего горизонта, значит объект закрыт более высоким препятствием.
-            
-            if angle >= max_angle:
-                # Одновременно обновляем горизонт.
-                max_angle = angle
-                # Видимыми будут только точки, которые больше или равны текущему горизонту.
-                visible[iy, ix] = 1
-```
-</details>
+  <details><summary>Сниппет кода с jit компиляцией для расчёта горизонта</summary>
+  
+  ```python
+  
+  @njit(cache=True, fastmath=True, parallel=True)
+  def process_all_rays_numba(effective_height, visible, edge_points, cx, cy, center_height, pixel_size):
+      """
+      Выполняет расчёт видимости по всем лучам DEM.
+  
+      Алгоритм:
+  
+      1. Для каждой точки периметра строится DDA-луч.
+      2. Луч проходит через DEM с субпиксельной точностью.
+      3. Высота рельефа вычисляется билинейной интерполяцией.
+      4. Для каждой точки вычисляется угол возвышения.
+      5. Поддерживается текущий радиогоризонт (максимальный угол вдоль луча).
+      6. Точка считается видимой, если её угол не ниже текущего горизонта.
+  
+      Все лучи обрабатываются внутри одной Numba-функции,
+      что исключает тысячи переходов Python → Numba.
+  
+      parallel=True позволяет распределять лучи между
+      несколькими ядрами CPU.
+      """
+  
+      h_map, w_map = effective_height.shape
+      num_rays = edge_points.shape[0]
+  
+      for ray_idx in prange(num_rays):
+          # ============================================================
+          # DDA (Digital Differential Analyzer)
+          # ============================================================
+          # Строим дискретный луч от центра к граничной точке.
+          x1, y1 = edge_points[ray_idx, 0], edge_points[ray_idx, 1]
+          dx, dy = x1 - cx, y1 - cy
+  
+          # Шаг выбирается по максимальной компоненте, чтобы за одну итерацию не перепрыгнуть пиксель вдоль главной оси движения.
+          steps = max(abs(dx), abs(dy))
+  
+          if steps == 0:
+              continue
+  
+          # Двигаемся маленькими шагами вдоль направления луча и сохраняем все пересечённые пиксели.
+          step_x, step_y = dx / steps, dy / steps
+          ray_step_length = math.sqrt(step_x * step_x + step_y * step_y)
+  
+          # Текущий радиогоризонт.
+          # Храним максимальный угол возвышения, встретившийся вдоль луча.
+          # Любая последующая точка с меньшим углом считается скрытой рельефом.
+          max_angle = -1e30
+          for i in range(steps + 1):
+              x, y = cx + step_x * i, cy + step_y * i
+  
+              ix, iy = int(x), int(y)
+  
+              # Bilinear interpolation значительно уменьшает ступенчатые эффекты DEM.
+              x0, y0 = ix, iy
+  
+              x1i, y1i = min(x0 + 1, w_map - 1), min(y0 + 1, h_map - 1)
+  
+              fx, fy = x - x0, y - y0
+  
+              h00 = effective_height[y0, x0]
+              h10 = effective_height[y0, x1i]
+              h01 = effective_height[y1i, x0]
+              h11 = effective_height[y1i, x1i]
+  
+              # Получаем высоту рельефа в дробных координатах луча.
+              height = (
+                      h00 * (1.0 - fx) * (1.0 - fy)
+                      + h10 * fx * (1.0 - fy)
+                      + h01 * (1.0 - fx) * fy
+                      + h11 * fx * fy
+              )
+  
+              # Дистанция до луча
+              distance = 1e-9 if i == 0 else (i * ray_step_length * pixel_size)
+  
+              # Угол возвышения
+              # Сам угол через atan() не нужен, поскольку для сравнения видимости достаточно относительного порядка значений.
+              # Это быстрее и даёт тот же результат.
+              angle = ((height - center_height) / distance)
+  
+              # ===== Построение горизонта =====
+              # Идея алгоритма видимости:
+              # Для каждой точки луча запоминаем максимальный угол возвышения, встреченный ранее на этом луче.
+              # Если текущий угол меньше уже существующего горизонта, значит объект закрыт более высоким препятствием.
+              
+              if angle >= max_angle:
+                  # Одновременно обновляем горизонт.
+                  max_angle = angle
+                  # Видимыми будут только точки, которые больше или равны текущему горизонту.
+                  visible[iy, ix] = 1
+  ```
+  </details>
 
 * **Множество Desktop .exe приложений:**
   С самоподписанными сертификатами безопасности, полноценными легковесными установщиками (качающими сам софт по сети), многопоточные, с различными анимациями, экранами, виджетами и прочей вёрсткой.
