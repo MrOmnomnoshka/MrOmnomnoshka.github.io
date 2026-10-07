@@ -1,7 +1,7 @@
 # Владислав Фёдоров (Software Engineer / R&D Developer)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white&logoSize=12)
 ![Algorithms](https://img.shields.io/badge/Algorithms-039A74?style=flat&logo=databricks&logoColor=white)
-![Desktop](https://img.shields.io/badge/Desktop_GUI-0078D4?style=flat&logo=codementor&logoColor=white)
+![Desktop](https://img.shields.io/badge/Desktop_GUI-0078D4?style=flat&logo=qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white)
 ![Hardware](https://img.shields.io/badge/Hardware_%26_IoT-4A4A55?style=flat&logo=arduino&logoColor=white)
 ![Networking](https://img.shields.io/badge/Network_Protocols-E34F26?style=flat&logo=wireshark&logoColor=white)
@@ -175,7 +175,7 @@ Full-Stack R&D инженер-исследователь. Специализир
 * **Многомерная алгоритмическая оптимизация:**
   Использование ГА для решения NP-трудных задач: планирование рабочих графиков в 23000-мерном пространстве (ГА + Numba); автоматическая 3D-расстановка объектов мебели с обходом коллизий многоугольников; покупка выгодных бинарных опционов.
 
-🎥🔦![GIF демо](images/Furniture.gif "Пример работы 2.5Д движка.")
+🎥🔦![GIF демо](images/Furniture.gif "Демонстрация топологической расстановки алгоритмом.")
 
 #### 4. GIS-системы и Desktop
 * **Классификация:**
