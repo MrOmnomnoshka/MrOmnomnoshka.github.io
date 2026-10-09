@@ -5,6 +5,7 @@
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white)
 ![Hardware](https://img.shields.io/badge/Hardware_%26_IoT-4A4A55?style=flat&logo=arduino&logoColor=white)
 ![Networking](https://img.shields.io/badge/Network_Protocols-E34F26?style=flat&logo=wireshark&logoColor=white)
+![Games](https://img.shields.io/badge/Games-gray?style=flat&logo=unity&logoColor=white)
 
 
 **Возраст:** 25 лет (03.12.2000)  
@@ -314,3 +315,7 @@ Full-Stack R&D инженер-исследователь. Специализир
   * Запись сценариев на одном устройстве и воспроизведение на пуле устройств.
   * Проксирование трафика через gost, многопоточность, группы устройств, повторные
   запуски, логирование и сбор результатов.
+
+#### 6. Участвовал в разработке игр на различных движках
+* **Работал с:**
+  Unity3D, Cocos, Construct, Godot
