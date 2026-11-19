@@ -53,7 +53,7 @@ I am also interested in opportunities in game development, VR, computer vision, 
 
 *July 2022 – Present*
 
-Delivered approximately 50 projects, more than 30 of which were complex, R&D-intensive B2B projects completed end to end — from architecture design to release.
+Delivered approximately 50 projects, more than 30 of which were complex, R&D-intensive B2B projects completed end to end - from architecture design to release.
 
 ## Selected Projects
 
