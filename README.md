@@ -8,7 +8,7 @@
 ![Games](https://img.shields.io/badge/Games-gray?style=flat&logo=unity&logoColor=white)
 
 
-**Telegram:** [@Barhatnoe_puzzo](https://t.me/Barhatnoe_puzzo) | **Email:** vladislav.fedorov.work@mail.ru
+**Telegram:** [@Barhatnoe_puzzo](https://t.me/Barhatnoe_puzzo) | **Email:** vladislav.fedorov.work@gmail.com
 
 ---
 
