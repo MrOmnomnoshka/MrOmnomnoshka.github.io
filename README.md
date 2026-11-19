@@ -1,4 +1,4 @@
-# Vladislav Fedorov — Software Engineer / R&D Developer
+# Vladislav Fedorov (Software Engineer / R&D Developer)
 
 🇷🇺 [Русский](README.ru.md) · 🇪🇳 **English**
 
@@ -16,9 +16,9 @@
 
 ## 👨‍💻 About Me
 
-I am an R&D Software Engineer focused on building complex, non-standard systems from the ground up. I am not tied to a particular technology stack: my work ranges from reverse-engineering binary protocols and controlling hardware over UDP/TCP — including Arduino-based thermostats deployed in the Far North — to developing custom 3D engines with OpenGL/GLSL and performing mathematical calculations of satellite orbits using GNSS data.
+I am an R&D Software Engineer focused on building complex, non-standard systems from the ground up. I am not tied to a particular technology stack: my work ranges from reverse-engineering binary protocols and controlling hardware over UDP/TCP - including Arduino-based thermostats deployed in the Far North - to developing custom 3D engines with OpenGL/GLSL and performing mathematical calculations of satellite orbits using GNSS data.
 
-I enjoy working at the intersection of different technologies and have a strong interest in low-level mechanisms: memory internals, graphics pipelines, and concurrency. I go beyond application-level APIs and regularly investigate the layers beneath them — protocols, data formats, threads, memory, performance, and architecture. I adapt quickly to new technologies, am comfortable learning new programming languages, and enjoy collaborating with people from different backgrounds.
+I enjoy working at the intersection of different technologies and have a strong interest in low-level mechanisms: memory internals, graphics pipelines, and concurrency. I go beyond application-level APIs and regularly investigate the layers beneath them - protocols, data formats, threads, memory, performance, and architecture. I adapt quickly to new technologies, am comfortable learning new programming languages, and enjoy collaborating with people from different backgrounds.
 
 I am also interested in opportunities in game development, VR, computer vision, DeepTech, and advanced algorithmic engineering.
 
